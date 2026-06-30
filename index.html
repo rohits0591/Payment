@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Dummy Payment Gateway</title>
+<style>
+    body {
+        font-family: Arial;
+        background: #f4f6f8;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    .container {
+        background: white;
+        padding: 20px;
+        width: 350px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+        text-align: center;
+    }
+    .amount {
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+        color: #007bff;
+        margin-bottom: 15px;
+    }
+    input {
+        width: 100%;
+        padding: 10px;
+        margin: 8px 0;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+    button {
+        width: 100%;
+        padding: 10px;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    button:hover {
+        background: #0056b3;
+    }
+    .hidden {
+        display: none;
+    }
+    .success {
+        color: green;
+        text-align: center;
+        font-weight: bold;
+    }
+</style>
+</head>
+
+<body>
+
+<!-- PAYMENT PAGE -->
+<div class="container" id="paymentPage">
+    <h2>Credit Card Payment</h2>
+    <div class="amount">Amount: ₹9,256</div>
+
+    <input type="text" placeholder="Card Number" id="card">
+    <input type="text" placeholder="Expiry (MM/YY)" id="expiry">
+    <input type="text" placeholder="CVV" id="cvv">
+    <input type="text" placeholder="Name on Card" id="name">
+
+    <button onclick="sendOTP()">Pay ₹9,256</button>
+</div>
+
+<!-- OTP PAGE -->
+<div class="container hidden" id="otpPage">
+    <h2>Enter OTP</h2>
+    <div class="amount">Amount: ₹9,256</div>
+    <p style="text-align:center;">(Use any OTP for demo)</p>
+    
+    <input type="text" placeholder="Enter OTP" id="otp">
+    <button onclick="verifyOTP()">Submit</button>
+</div>
+
+<!-- SUCCESS PAGE -->
+<div class="container hidden" id="successPage">
+    <h2 class="success">✅ Payment Successful!</h2>
+    <div class="amount">₹9,256 Paid Successfully</div>
+</div>
+
+<script>
+function sendOTP() {
+    let card = document.getElementById("card").value;
+    let expiry = document.getElementById("expiry").value;
+    let cvv = document.getElementById("cvv").value;
+    let name = document.getElementById("name").value;
+
+    if (!card || !expiry || !cvv || !name) {
+        alert("Please fill all details");
+        return;
+    }
+
+    document.getElementById("paymentPage").classList.add("hidden");
+    document.getElementById("otpPage").classList.remove("hidden");
+}
+
+function verifyOTP() {
+    let otp = document.getElementById("otp").value;
+
+    if (!otp) {
+        alert("Please enter OTP");
+        return;
+    }
+
+    document.getElementById("otpPage").classList.add("hidden");
+    document.getElementById("successPage").classList.remove("hidden");
+}
+</script>
+
+</body>
+</html>
